@@ -1,0 +1,31 @@
+- cmd: cat ~/hoge.txt
+  when: 1625806462
+- cmd: cargo run
+  when: 1625806475
+- cmd: ls
+  when: 1625806715
+- cmd: cargo run
+  when: 1625808319
+- cmd: ls
+  when: 1625808487
+- cmd: rm hello.txt
+  when: 1625808488
+  paths:
+    - hello.txt
+- cmd: rm src/foo.txt
+  when: 1625808494
+  paths:
+    - src/foo.txt
+- cmd: ls
+  when: 1625808498
+- cmd: mkdir fixtures
+  when: 1625808612
+- cmd: touch sample_fish_history.txt
+  when: 1625808626
+- cmd: mv sample_fish_history.txt fixtures/
+  when: 1625808640
+  paths:
+    - sample_fish_history.txt
+    - fixtures/
+- cmd: cat ~/.local/share/fish/fish_history
+  when: 1625808657
