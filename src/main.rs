@@ -26,7 +26,7 @@ fn main() -> io::Result<()> {
                 break;
             }
             Ok(_) => (),
-            Err(why) => panic!("Something wrong! {}", why.to_string()),
+            Err(why) => panic!("Something wrong!! {}", why.to_string()),
         }
         println!("{}", buf);
     }
