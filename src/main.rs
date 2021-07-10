@@ -1,11 +1,9 @@
-extern crate yaml_rust;
 use std::{
     env,
     fs::File,
-    io::{self, BufRead, BufReader, Read},
+    io::{BufReader, Read},
     path::{Path, PathBuf},
 };
-use yaml_rust::yaml;
 
 pub enum Env {
     Production,
@@ -21,35 +19,7 @@ fn get_history_file_path(env: Env) -> PathBuf {
     path
 }
 
-fn print_indent(indent: usize) {
-    for _ in 0..indent {
-        print!("    ");
-    }
-}
-
-fn dump_node(doc: &yaml::Yaml, indent: usize) {
-    match *doc {
-        yaml::Yaml::Array(ref v) => {
-            for x in v {
-                dump_node(x, indent + 1);
-            }
-        }
-        yaml::Yaml::Hash(ref h) => {
-            for (k, v) in h {
-                //print_indent(indent);
-                if k.as_str().unwrap() == "cmd" {
-                    dump_node(v, indent + 1);
-                }
-            }
-        }
-        _ => {
-            //print_indent(indent);
-            println!("{:?}", doc);
-        }
-    }
-}
-
-fn main() -> io::Result<()> {
+fn main() {
     let history_file_path = get_history_file_path(Env::Dev);
 
     let file = File::open(history_file_path).unwrap();
@@ -57,14 +27,6 @@ fn main() -> io::Result<()> {
     let mut buf = String::new();
 
     reader.read_to_string(&mut buf).unwrap();
-
-    let histories = yaml::YamlLoader::load_from_str(&buf).unwrap();
-    let history_yaml = &histories[0];
-
-    println!("---");
-    dump_node(&history_yaml, 0);
-
-    Ok(())
 }
 
 #[test]

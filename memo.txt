@@ -2,6 +2,8 @@
   [x] fishのhistoryファイルのパスを取得する
   [x] パスからファイルを読み込み一番下から100件順番に読み込み表示させる
 [x] get_history_file_pathをテストする
-[] yamlをパースしてみる
-  [] yaml-rustを入れる
-  [] 100行分パースしてcmdを単純に表示
+[x] yamlをパースしてみる
+  [x] yaml-rustを入れる
+  [x] 100行分パースしてcmdを単純に表示
+
+-> yamlとしてパースするとパース段階でバグるしfish_history自体偽yamlなので素直にcmdとwhenをパースするようにする
