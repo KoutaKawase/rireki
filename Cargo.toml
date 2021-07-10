@@ -1,5 +1,5 @@
 [package]
-name = "rireki"
+name = "rustory"
 version = "0.1.0"
 authors = ["KoutaKawase <suhrkawase@gmail.com>"]
 edition = "2018"

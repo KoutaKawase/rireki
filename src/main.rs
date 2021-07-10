@@ -5,14 +5,22 @@ use std::{
     path::{Path, PathBuf},
 };
 
-fn get_history_file_path() -> PathBuf {
+pub enum Env {
+    Production,
+    Dev,
+}
+
+fn get_history_file_path(env: Env) -> PathBuf {
     let home_dir = env::var("HOME").expect("couldn't interpret $HOME");
-    let history_file_path = Path::new(&home_dir).join(".local/share/fish/fish_history");
-    history_file_path
+    let path = match env {
+        Env::Dev => PathBuf::from("fixtures/sample_fish_history.txt"),
+        Env::Production => Path::new(&home_dir).join(".local/share/fish/fish_history"),
+    };
+    path
 }
 
 fn main() -> io::Result<()> {
-    let history_file_path = get_history_file_path();
+    let history_file_path = get_history_file_path(Env::Dev);
 
     let file = File::open(history_file_path).unwrap();
     let mut reader = BufReader::new(file);
@@ -35,4 +43,10 @@ fn main() -> io::Result<()> {
 }
 
 #[test]
-fn it_works() {}
+fn test_get_history_file_path() {
+    let home_dir = env::var("HOME").expect("couldn't interpret $HOME");
+    let dev_path = PathBuf::from("fixtures/sample_fish_history.txt");
+    let prod_path = Path::new(&home_dir).join(".local/share/fish/fish_history");
+    assert_eq!(get_history_file_path(Env::Dev), dev_path);
+    assert_eq!(get_history_file_path(Env::Production), prod_path);
+}
