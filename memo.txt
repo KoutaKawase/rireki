@@ -5,5 +5,10 @@
 [x] yamlをパースしてみる
   [x] yaml-rustを入れる
   [x] 100行分パースしてcmdを単純に表示
+[x] &strとStringの違いをまとめる
+[] テストをmod testでまとめる
+
 
 -> yamlとしてパースするとパース段階でバグるしfish_history自体偽yamlなので素直にcmdとwhenをパースするようにする
+
+
